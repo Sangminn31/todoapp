@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/main.css" rel="stylesheet">
+    <title>Todo App</title>
+</head>
+<body class="bg-grey">
+    <%- include('nav.ejs') %>
+
+    
+    <form class="form-box" action="/edit?_method=PUT" method="post">
+        <h4>Edit To Do</h4>
+        <input name="title" value="<%= result.title %>">
+        <input name="content" value="<%= result.content %>">
+        <input name="id" value="<%= result._id %>" hidden style="display : none">
+        <button type="submit">Update</button>
+    </form>
+
+
+
+
+</body>
+</html>

@@ -13,3 +13,56 @@ body {
   .logo {
     font-weight: bold;
   }
+  input,div {
+    box-sizing: border-box;
+  }
+  .form-box {
+    background : white;
+    padding : 25px;
+    margin: 20px;
+    border-radius: 8px;
+  }
+  .form-box input {
+    padding : 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .form-box button {
+    padding: 10px;
+    border : none;
+    background : lightgrey;
+    border-radius: 5px;
+  }
+
+  .detail-bg {
+    background: white;
+    padding: 15px;
+    margin-top: 10px;
+  }
+
+  .bg-white a {
+    text-decoration: none;
+    color: #000000; /* Or any other color you prefer */
+}
+
+  .button-style {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+a {
+  text-decoration: none; /* Removes underline */
+  color: #000000; /* Changes color to black, you can set it to any color you prefer */
+}
+
+.grey-bg {
+  background-color: #c6c6c6; /* This is a shade of grey */
+}
