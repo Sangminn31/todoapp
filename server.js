@@ -124,5 +124,34 @@ app.put('/edit', async (req, res) => {
 });
 
 
+app.delete('/delete', async (req, res) => {
+    try {
+        let result = await db.collection('post').deleteOne({ _id: new ObjectId(req.query.docid) });
+        if (result.deletedCount === 1) { 
+            res.send('Delete successful');
+        } else {
+            res.send('No post found with that ID');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error accessing the database');
+    }
+});
 
+app.get('/list/:id', async (req, res) => {
+    const page = parseInt(req.params.id, 10) || 1; // Current page
+    const pageSize = 5; // Posts per page
+    const skip = (page - 1) * pageSize;
+
+    // Get the total number of posts
+    const totalPosts = await db.collection('post').countDocuments();
+    const totalPages = Math.ceil(totalPosts / pageSize);
+
+    let posts = await db.collection('post').find().skip(skip).limit(pageSize).toArray();
+    res.render('list.ejs', {
+        posts: posts,
+        totalPages: totalPages,
+        currentPage: page
+    });
+});
 

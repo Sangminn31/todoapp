@@ -15,11 +15,46 @@
                 <h4>
                     <a href="/detail/<%= posts[i]._id %>"> <%= posts[i].title %> </a>
                     <a href="/edit/<%= posts[i]._id %>">✏️</a>
+                    <button class="delete" data-id="<%= posts[i]._id %>">🗑️</span>
                 </h4>
                 <p><%= posts[i].content %></p>
             </div>
-        <% } %>
+            <% } %>
+            <div class="pagination">
+                <% for(let i = 1; i <= totalPages; i++) { %>
+                    <% if(i == currentPage) { %>
+                        <span><%= i %></span> <!-- Highlight the current page number -->
+                    <% } else { %>
+                        <a href="/list/<%= i %>"><%= i %></a>
+                    <% } %>
+                <% } %>
+            </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const isConfirmed = confirm("Do you want to delete this post?");
+                if (isConfirmed) {
+                    fetch('/delete?docid=' + e.target.dataset.id, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Post deleted successfully');
+                            e.traget.parentElement.parentElement.style.display = 'none'
+                        } else {
+                            console.error('Deletion failed');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                } else {
+                    console.log('Deletion canceled');
+                }
+            });
+        });
+    </script>
+
 
 </body>
 </html>
