@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/main.css" rel="stylesheet">
+    <title>Todo App</title>
+</head>
+<body class="grey-bg">
+    <%- include('nav.ejs') %>
+
+    <form class="form-box" action="/signup" method="post">
+        <h4>SIGN UP</h4>
+        <label>User Name<input name="username"></label>
+        <div id="error-message" style="color:red;"></div>
+        <br>
+        <label>Password<input name="password" type="password"></label>
+        <br>
+        <label>Re-Password<input name="re-password" type="password"></label>
+        <span type="button" name="passwordchk" class="passwordchk" 
+        style="border: 1px; border-color: black; border-style: solid;">
+        password check</span>
+        <br>
+        <button type="submit">Register</button>
+    </form> 
+
+    <script>
+        document.querySelector('.passwordchk').addEventListener('click', function(e) {
+            var password = document.querySelector('input[name="password"]').value;
+            var rePassword = document.querySelector('input[name="re-password"]').value;
+            if(password === rePassword) {
+                alert('Passwords match!');
+            } else {
+                alert('Passwords do not match!');
+            }
+        });
+        
+    document.querySelector('.form-box').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+
+    fetch('/signup', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.status === 409) {
+            // Handle username taken error
+            return response.json();
+        } else if (response.ok) {
+            // If successful, handle redirection
+            window.location.assign('/login');
+            return null;
+        } else {
+            throw new Error('Server responded with status: ' + response.status);
+        }
+    })
+    .then(data => {
+        if (data && data.status === 'error') {
+            document.getElementById('error-message').textContent = data.message;
+        }
+    })
+    .catch(error => {
+        document.getElementById('error-message').textContent = 'An error occurred: ' + error.message;
+    });
+});
+
+    </script>
+
+
+</body>
+</html>
