@@ -44,10 +44,6 @@ app.get('/news', function(req, res){
     db.collection('post').insertOne({title: 'first try'})
 });
 
-app.get('/list', async(req, res) => {
-    let result = await db.collection('post').find().toArray()
-    res.render('list.ejs',{ posts : result })
-})
 
 app.get('/time', (req, res) => {
     res.render('time.ejs', {data : new Date() })
@@ -55,6 +51,18 @@ app.get('/time', (req, res) => {
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html')
+});
+app.get('/list', async(req, res) => {
+    const pageSize = 5; // Keeping consistent with your paginated route
+    const totalPosts = await db.collection('post').countDocuments();
+    const totalPages = Math.ceil(totalPosts / pageSize);
+    let posts = await db.collection('post').find().limit(pageSize).toArray(); // Optionally limit to pageSize
+
+    res.render('list.ejs', { 
+        posts: posts,
+        totalPages: totalPages, // Even if not used for fetching, needed by template
+        currentPage: 1 // Default to first page
+    });
 });
 
 app.get('/write', function(req, res){
