@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/main.css" rel="stylesheet">
-    <title>Todo App</title>
+    <title>Write Post</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
-<body class="grey-bg">
+<body>
     <%- include('nav.ejs') %>
-
-    <form class="form-box" action="/add" method="post">
-        <h4>To Do</h4>
-        <input name="title">
-        <input name="content">
-        <button type="submit">전송</button>
-    </form> 
-
+    <div class="container">
+        <div class="form-box">
+            <h1>Write a New Post</h1>
+            <form action="/add" method="POST">
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="content" placeholder="Content" required></textarea>
+                <br>
+                <br>
+                <button type="submit">Add Post</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

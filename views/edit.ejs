@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/main.css" rel="stylesheet">
-    <title>Todo App</title>
+    <title>Edit Post</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
-<body class="bg-grey">
+<body>
     <%- include('nav.ejs') %>
-
-    
-    <form class="form-box" action="/edit?_method=PUT" method="post">
-        <h4>Edit To Do</h4>
-        <input name="title" value="<%= result.title %>">
-        <input name="content" value="<%= result.content %>">
-        <input name="id" value="<%= result._id %>" hidden style="display : none">
-        <button type="submit">Update</button>
-    </form>
-
-
-
-
+    <div class="container">
+        <div class="form-box">
+            <h1>Edit Post</h1>
+            <form action="/edit?_method=PUT" method="POST">
+                <input type="hidden" name="id" value="<%= result._id %>">
+                <input type="text" name="title" placeholder="Title" value="<%= result.title %>" required>
+                <textarea name="content" placeholder="Content" required><%= result.content %></textarea>
+                <br>
+                <button type="submit">Update Post</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

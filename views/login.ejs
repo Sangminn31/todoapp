@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/main.css" rel="stylesheet">
-    <title>Todo App</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
-<body class="grey-bg">
+<body>
     <%- include('nav.ejs') %>
-
-    <form class="form-box" action="/login" method="post">
-        <h4>LOGIN</h4>
-        <input name="username">
-        <input name="password" type="password">
-        <button type="submit">Login</button>
-    </form> 
-
+    <div class="container">
+        <div class="form-box">
+            <h1>Login</h1>
+            <% if (messages.success) { %>
+                <div class="alert alert-success"><%= messages.success %></div>
+            <% } %>
+            <% if (messages.error) { %>
+                <div class="alert alert-danger"><%= messages.error %></div>
+            <% } %>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

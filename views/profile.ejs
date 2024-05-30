@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <title>Todo App</title>
+</head>
+<body class="grey-bg">
+    <%- include('nav.ejs') %>
+
+    <form class="form-box" action="/profile?_method=PUT" method="post">
+        <h4>Profile</h4>
+        <input name="title" value="<%= req.id %>">
+        <input name="content" value="<%= req.username %>">
+        <input name="id" value="<%= req._id %>" hidden style="display : none">
+        <button type="submit">Edit</button>
+    </form>
+
+</body>
+</html>
