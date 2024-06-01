@@ -3,19 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/main.css">
-    <title>Todo App</title>
+    <title>Profile</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
-<body class="grey-bg">
+<body>
     <%- include('nav.ejs') %>
-
-    <form class="form-box" action="/profile?_method=PUT" method="post">
-        <h4>Profile</h4>
-        <input name="title" value="<%= req.id %>">
-        <input name="content" value="<%= req.username %>">
-        <input name="id" value="<%= req._id %>" hidden style="display : none">
-        <button type="submit">Edit</button>
-    </form>
-
+    <div class="container">
+        <div class="profile-box">
+            <h1>Profile</h1>
+            <p><strong>Username:</strong> <%= user.username %></p>
+            <a href="/logout" class="button-style">Logout</a>
+        </div>
+        <div class="form-box">
+            <h1>Reset Password</h1>
+            <% if (messages.success) { %>
+                <div class="alert alert-success"><%= messages.success %></div>
+            <% } %>
+            <% if (messages.error) { %>
+                <div class="alert alert-danger"><%= messages.error %></div>
+            <% } %>
+            <form action="/reset-password" method="POST">
+                <input type="password" name="currentPassword" placeholder="Current Password" required>
+                <input type="password" name="newPassword" placeholder="New Password" required>
+                <input type="password" name="confirmNewPassword" placeholder="Confirm New Password" required>
+                <button type="submit">Reset Password</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

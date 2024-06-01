@@ -18,6 +18,13 @@
             <div class="alert alert-danger"><%= messages.error %></div>
         <% } %>
         
+        <div class="search-box">
+            <form action="/search" method="GET">
+                <input type="text" name="query" placeholder="Search todos...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
         <div class="list-container">
             <% if (posts.length > 0) { %>
                 <% posts.forEach(function(post) { %>
