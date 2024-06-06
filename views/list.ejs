@@ -1,60 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-    <%- include('nav.ejs') %>
-    <div class="container">
-        <h1>Todo List</h1>
-        
-        <% if (messages.success) { %>
-            <div class="alert alert-success"><%= messages.success %></div>
-        <% } %>
-        <% if (messages.error) { %>
-            <div class="alert alert-danger"><%= messages.error %></div>
-        <% } %>
-        
-        <div class="search-box">
-            <form action="/search" method="GET">
-                <input type="text" name="query" placeholder="Search todos...">
-                <button type="submit">Search</button>
-            </form>
-        </div>
-        
-        <div class="list-container">
-            <% if (posts.length > 0) { %>
-                <% posts.forEach(function(post) { %>
-                    <div class="list-box">
-                        <h4>
-                            <a href="/detail/<%= post._id %>"><%= post.title %></a>
-                            <div class="button-group">
-                                <a href="/edit/<%= post._id %>" class="button-style">Edit</a>
-                                <form action="/delete?_method=DELETE" method="POST" style="display: inline;">
-                                    <input type="hidden" name="docid" value="<%= post._id %>">
-                                    <button type="submit" class="delete">Delete</button>
-                                </form>
-                            </div>
-                        </h4>
-                        <p><%= post.content %></p>
-                    </div>
-                <% }) %>
-            <% } else { %>
-                <p>No posts available</p>
-            <% } %>
-        </div>
-        <div class="pagination">
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <% if (i === currentPage) { %>
-                    <span><%= i %></span>
-                <% } else { %>
-                    <a href="/list/<%= i %>"><%= i %></a>
-                <% } %>
-            <% } %>
-        </div>
-    </div>
-</body>
-</html>
+<h1>Todo List</h1>
+
+<a href="/posts/write" class="btn btn-primary mb-3">Write Post</a>
+
+<% if (success_msg && success_msg.length > 0) { %>
+  <div class="alert alert-success"><%= success_msg %></div>
+<% } %>
+
+<% if (error_msg && error_msg.length > 0) { %>
+  <div class="alert alert-danger"><%= error_msg %></div>
+<% } %>
+
+<% if (messages.error) { %>
+  <div class="alert alert-danger"><%= messages.error %></div>
+<% } %>
+
+<div class="list-group">
+  <% posts.forEach(function(post) { %>
+    <a href="/posts/detail/<%= post._id %>" class="list-group-item list-group-item-action">
+      <h5 class="mb-1"><%= post.title %></h5>
+      <p class="mb-1"><%= post.content %></p>
+      <% if (post.user && post.user.username) { %>
+        <small>Posted by <%= post.user.username %> on <%= post.createdAt.toDateString() %></small>
+      <% } else { %>
+        <small>Posted on <%= post.createdAt.toDateString() %></small>
+      <% } %>
+    </a>
+  <% }) %>
+</div>

@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Details</title>
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-    <%- include('nav.ejs') %>
-    <div class="container">
-        <div class="detail-bg">
-            <h1><%= result.title %></h1>
-            <p><%= result.content %></p>
-            <a href="/edit/<%= result._id %>" class="button-style">Edit</a>
-            <form action="/delete?_method=DELETE" method="POST" style="display: inline;">
-                <input type="hidden" name="docid" value="<%= result._id %>">
-                <button type="submit" class="delete">Delete</button>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+<h1><%= post.title %></h1>
+<p><%= post.content %></p>
+<small>Posted by <%= post.user.username %> on <%= post.createdAt.toDateString() %></small>
+
+<% if (user && user._id.toString() === post.user._id.toString()) { %>
+  <a href="/posts/edit/<%= post._id %>" class="btn btn-warning">Edit</a>
+  <form action="/posts/delete/<%= post._id %>" method="POST">
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+<% } %>

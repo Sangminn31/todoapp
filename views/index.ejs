@@ -1,0 +1,18 @@
+<% if (!user) { %>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to TodoApp</h1>
+    <p class="lead">Manage your tasks efficiently and effectively.</p>
+    <hr class="my-4">
+    <p>Get started by signing up or logging in.</p>
+    <a class="btn btn-primary btn-lg" href="/auth/signup" role="button">Sign Up</a>
+    <a class="btn btn-secondary btn-lg" href="/auth/login" role="button">Login</a>
+  </div>
+<% } else { %>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome, <%= user.username %>!</h1>
+    <p class="lead">Manage your tasks efficiently and effectively.</p>
+    <hr class="my-4">
+    <p>You're logged in. Start managing your tasks now.</p>
+    <a class="btn btn-primary btn-lg" href="/posts/write" role="button">Write Post</a>
+  </div>
+<% } %>
